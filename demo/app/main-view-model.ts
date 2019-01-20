@@ -26,6 +26,7 @@ export class HelloWorldModel extends Observable {
   public AEDEncrypt() {
 
     let key = this.simpleLibsodium.generateRandomData(AEDValues.XCHACHA20POLY1305_IETF_KEYBYTES);
+    // or let key = this.simpleLibsodium.generateKeyWithSuppliedString("myKey", AEDValues.XCHACHA20POLY1305_IETF_KEYBYTES);
 
     let enc = this.simpleLibsodium.AEDEncrypt(AEDMethod.XCHACHA20_POLY1305_IETF, "Hello World", key.raw);
 
@@ -42,6 +43,7 @@ export class HelloWorldModel extends Observable {
   public secretBox() {
 
     let key = this.simpleLibsodium.generateRandomData(Keybytes.SECRETBOX_KEYBYTES);
+    // or let key = this.simpleLibsodium.generateKeyWithSuppliedString("myKey", Keybytes.SECRETBOX_KEYBYTES);
 
     let enc = this.simpleLibsodium.secretBoxEncrypt("Hello World", key.raw);
 
@@ -58,6 +60,7 @@ export class HelloWorldModel extends Observable {
   public xSalsa20() {
 
     let key = this.simpleLibsodium.generateRandomData(Keybytes.STREAM_KEYBYTES);
+    // or let key = this.simpleLibsodium.generateKeyWithSuppliedString("myKey", Keybytes.STREAM_KEYBYTES);
 
     let enc = this.simpleLibsodium.xSalsa20Encrypt("Hello World", key.raw);
 

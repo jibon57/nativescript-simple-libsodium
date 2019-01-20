@@ -19,14 +19,14 @@ export class SimpleLibsodium extends Common {
     /**
      * generateKeyWithSuppliedString
      */
-    public generateKeyWithSuppliedString(mykey: string, saltSize = 32) {
+    public generateKeyWithSuppliedString(mykey: string, length = 32) {
 
-        let out: any = NSMutableData.dataWithLength(saltSize);
+        let out: any = NSMutableData.dataWithLength(length);
         let passwd: any = this.nsstringTOnsdata(mykey);
         let salt: any = this.generateRandomData(crypto_pwhash_saltbytes());
         let alg = crypto_pwhash_alg_argon2id13(); // crypto_pwhash_alg_default();
 
-        crypto_pwhash(out.mutableBytes, saltSize, passwd.bytes, passwd.length, salt.raw.bytes, crypto_pwhash_opslimit_interactive(), crypto_pwhash_memlimit_interactive(), alg);
+        crypto_pwhash(out.mutableBytes, length, passwd.bytes, passwd.length, salt.raw.bytes, crypto_pwhash_opslimit_interactive(), crypto_pwhash_memlimit_interactive(), alg);
 
         return {
             'hexString': this.binTohex(out),

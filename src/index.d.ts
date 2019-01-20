@@ -52,7 +52,7 @@ export declare class SimpleLibsodium extends Common {
     'hexString': string;
     'raw': any;
   };
-  generateKeyWithSuppliedString(mykey: string, saltSize?: number): {
+  generateKeyWithSuppliedString(mykey: string, length?: number): {
     'hexString': string;
     'raw': any;
   };

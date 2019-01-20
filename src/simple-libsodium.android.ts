@@ -37,12 +37,12 @@ export class SimpleLibsodium extends Common {
     /**
      * generateKeyWithSuppliedString
      */
-    public generateKeyWithSuppliedString(mykey: string, saltSize: number = 32) {
+    public generateKeyWithSuppliedString(mykey: string, length: number = 32) {
 
         let alg = Interfaces.PwHash.Alg.getDefault();
         let salt = this.generateRandomData(Interfaces.PwHash.SALTBYTES);
 
-        let out = this.lazySodium.cryptoPwHash(mykey, saltSize, salt.raw, Interfaces.PwHash.OPSLIMIT_INTERACTIVE, Interfaces.PwHash.MEMLIMIT_INTERACTIVE, alg);
+        let out = this.lazySodium.cryptoPwHash(mykey, length, salt.raw, Interfaces.PwHash.OPSLIMIT_INTERACTIVE, Interfaces.PwHash.MEMLIMIT_INTERACTIVE, alg);
 
         return {
             'hexString': out,

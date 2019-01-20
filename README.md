@@ -43,7 +43,7 @@ var simpleLibsodium = new mSimpleLibsodium.SimpleLibsodium();
 
 Please check the demo project for more details example.
 
-Generate Random Data:
+**Generate Random Data:**
 
 ```javascript
 simpleLibsodium.generateRandomData();
@@ -51,12 +51,88 @@ simpleLibsodium.generateRandomData();
 simpleLibsodium.generateKeyWithSuppliedString("Jibon Costa");
 ```
 
+**AED Encryption/Decryption:**
+
+```javascript
+let key = this.simpleLibsodium.generateRandomData(AEDValues.XCHACHA20POLY1305_IETF_KEYBYTES);
+// or let key = this.simpleLibsodium.generateKeyWithSuppliedString("myKey", AEDValues.XCHACHA20POLY1305_IETF_KEYBYTES);
+
+let enc = this.simpleLibsodium.AEDEncrypt(AEDMethod.XCHACHA20_POLY1305_IETF, "Hello World", key.raw);
+
+console.dir(enc);
+
+let dec = this.simpleLibsodium.AEDDecrypt(AEDMethod.XCHACHA20_POLY1305_IETF, enc.rawCrypted, key.raw, enc.rawNonce);
+
+console.dir(dec);
+```
+
+**Secret Box:**
+
+```javascript
+let key = this.simpleLibsodium.generateRandomData(Keybytes.SECRETBOX_KEYBYTES);
+// or let key = this.simpleLibsodium.generateKeyWithSuppliedString("myKey", Keybytes.SECRETBOX_KEYBYTES);
+
+let enc = this.simpleLibsodium.secretBoxEncrypt("Hello World", key.raw);
+
+console.dir(enc);
+
+let dec = this.simpleLibsodium.secretBoxOpen(enc.rawCrypted, key.raw, enc.rawNonce);
+
+console.dir(dec);
+```
+
+**Salsa20:**
+
+```javascript
+let key = this.simpleLibsodium.generateRandomData(Keybytes.STREAM_KEYBYTES);
+// or let key = this.simpleLibsodium.generateKeyWithSuppliedString("myKey", Keybytes.STREAM_KEYBYTES);
+
+let enc = this.simpleLibsodium.xSalsa20Encrypt("Hello World", key.raw);
+
+console.dir(enc);
+
+let dec = this.simpleLibsodium.xSalsa20Decrypt(enc.rawCrypted, key.raw, enc.rawNonce);
+
+console.dir(dec);
+```
+
+**Box Easy:**
+
+```javascript
+let bob = this.simpleLibsodium.boxKeyPaired();
+let alice = this.simpleLibsodium.boxKeyPaired();
+
+// Bob sending message to Alice. So, here will need alice's public key & Bob's private/secret key
+let enc = this.simpleLibsodium.boxEasy("Hello World", alice.public_key, bob.private_key);
+
+console.dir(enc);
+
+// Alice got the message from Bob. Now Alice need his private key & Bob's public key.
+let dec = this.simpleLibsodium.boxOpenEasy(enc.rawCrypted, enc.rawNonce, bob.public_key, alice.private_key);
+
+console.dir(dec);
+```
+
+**Password Hash/Verification:**
+
+```javascript
+let enc = this.simpleLibsodium.passwordHash("MyPassword");
+
+console.dir(enc);
+
+if (this.simpleLibsodium.passwordHashVerify(enc.plainHash, "MyPassword")) {
+  console.log("Password Matched!");
+} else {
+  console.log("Password invalid!");
+}
+```
+
 ## Methods
     
 | Methods | Description | Reference |
 | --- | --- | --- |
 | generateRandomData(length?: number) | Generate Random Data | https://libsodium.gitbook.io/doc/generating_random_data |
-| generateKeyWithSuppliedString(mykey: string, saltSize?: number) | Generate Random Data with Key. Algorithm: `crypto_pwhash_ALG_ARGON2I13` | https://libsodium.gitbook.io/doc/password_hashing/the_argon2i_function#key-derivation |
+| generateKeyWithSuppliedString(mykey: string, length?: number) | Generate Random Data with Key. Algorithm: `crypto_pwhash_ALG_ARGON2I13` | https://libsodium.gitbook.io/doc/password_hashing/the_argon2i_function#key-derivation |
 | AEDEncrypt(method: AEDMethod, msg: string, key: any, nonce?: any, additionalMsg?: string) | AED Encryption. Here `nonce` & `additionalMsg` are optional. If you don't insert anything as `nonce` then it will generate `nonce` automatically. If you don't insert anything as `additionalMsg` then `nonce` will be use as `additionalMsg`. | https://libsodium.gitbook.io/doc/secret-key_cryptography/aead |
 | AEDDecrypt(method: AEDMethod, encrypData: any, key: any, nonce: any, additionalMsg?: string) | AED Decryption. Here `encrypData`, `key` & `nonce` should need to be binary data. If you have `Hexadecimal` or `base64` string then you will need to convert before using. In this case you can use `hexTobin()` or `base64Tobytes()` methods to convert. | https://libsodium.gitbook.io/doc/secret-key_cryptography/aead |
 | secretBoxEncrypt(text: string, key: any, nonce?: any) | Authenticated encryption. If you don't insert anything as `nonce` then it will generate `nonce` automatically. | https://libsodium.gitbook.io/doc/secret-key_cryptography/authenticated_encryption#combined-mode |
