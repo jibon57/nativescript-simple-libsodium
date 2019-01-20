@@ -153,9 +153,7 @@ if (this.simpleLibsodium.passwordHashVerify(enc.plainHash, "MyPassword")) {
 
 
 
-
-
-**Note:** You can add more methods or API from code sodium package to your project easily. 
+**Note: You can add more methods or API from core sodium package to your project easily.** 
 
 Android:
 
