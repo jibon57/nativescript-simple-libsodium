@@ -111,8 +111,8 @@ export declare class SimpleLibsodium extends Common {
   passwordHashVerify(plainHash: any, password: string): boolean;
   binTohex(binary: any): string;
   hexTobin(hex: string): any;
-  bytesToBase64(data: any): string;
-  base64Tobytes(base64String: string): any;
+  bytesToBase64(data: any, variant?: Base64Variant): string;
+  base64Tobytes(base64String: string, variant?: Base64Variant): any;
   stringTodata(text: string): any;
   dataTostring(data: any): any;
 }

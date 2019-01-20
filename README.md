@@ -146,8 +146,8 @@ if (this.simpleLibsodium.passwordHashVerify(enc.plainHash, "MyPassword")) {
 | passwordHashVerify(plainHash: any, password: string) | Password verification. Here the value `plainHash` should need to plain text/string. | https://libsodium.gitbook.io/doc/password_hashing/the_argon2i_function#password-storage |
 | binTohex(binary: any) | Hexadecimal encoding | https://libsodium.gitbook.io/doc/helpers#hexadecimal-encoding-decoding |
 | hexTobin(hex: string) | Hexadecimal decoding | https://libsodium.gitbook.io/doc/helpers#hexadecimal-encoding-decoding |
-| bytesToBase64(data: any) | Base64 encoding | https://libsodium.gitbook.io/doc/helpers#base64-encoding-decoding. |
-| base64Tobytes(base64String: string) | Base64 decoding | https://libsodium.gitbook.io/doc/helpers#base64-encoding-decoding |
+| bytesToBase64(data: any, variant?: Base64Variant) | Base64 encoding | https://libsodium.gitbook.io/doc/helpers#base64-encoding-decoding. |
+| base64Tobytes(base64String: string, variant?: Base64Variant) | Base64 decoding | https://libsodium.gitbook.io/doc/helpers#base64-encoding-decoding |
 | stringTodata(text: string) | String text to Binary | Native Implementation |
 | dataTostring(data: any) | Binary to text | Native Implementation |
 
