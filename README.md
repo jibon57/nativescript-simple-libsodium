@@ -102,7 +102,7 @@ console.dir(dec);
 let bob = this.simpleLibsodium.boxKeyPaired();
 let alice = this.simpleLibsodium.boxKeyPaired();
 
-// Bob sending message to Alice. So, here will need alice's public key & Bob's private/secret key
+// Bob sending message to Alice. So, here will need Alice's public key & Bob's private/secret key
 let enc = this.simpleLibsodium.boxEasy("Hello World", alice.public_key, bob.private_key);
 
 console.dir(enc);
@@ -153,7 +153,9 @@ if (this.simpleLibsodium.passwordHashVerify(enc.plainHash, "MyPassword")) {
 
 
 
-**Note:** You can add more methods or API in your project easily. 
+
+
+**Note:** You can add more methods or API from code sodium package to your project easily. 
 
 Android:
 
