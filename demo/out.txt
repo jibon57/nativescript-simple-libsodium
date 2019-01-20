@@ -1,0 +1,100 @@
+Copying template files...
+Platform ios successfully added. v5.1.1
+Executing before-shouldPrepare hook from /Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/hooks/before-shouldPrepare/nativescript-dev-webpack.js
+Executing before-cleanApp hook from /Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/hooks/before-cleanApp/nativescript-dev-webpack.js
+Executing before-prepare hook from /Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/hooks/before-prepare/nativescript-dev-typescript.js
+Found peer TypeScript 2.8.4
+Preparing project...
+Executing before-prepareJSApp hook from /Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/hooks/before-prepareJSApp/nativescript-dev-webpack.js
+Successfully prepared plugin nativescript-theme-core for ios.
+Successfully prepared plugin nativescript-unit-test-runner for ios.
+Successfully prepared plugin nativescript-simple-libsodium for ios.
+Successfully prepared plugin tns-core-modules for ios.
+Successfully prepared plugin tns-core-modules-widgets for ios.
+Installing pods...
+Analyzing dependencies
+Downloading dependencies
+Generating Pods project
+Integrating client project
+
+[!] Please close any current Xcode sessions and use `demo.xcworkspace` for this project from now on.
+Sending stats
+Pod installation complete! There are 0 dependencies from the Podfile and 0 total pods installed.
+
+[!] The Podfile does not contain any dependencies.
+
+[!] Automatically assigning platform `ios` with version `9.0` on target `demo` because no platform was specified. Please specify a platform for this target in your Podfile. See `https://guides.cocoapods.org/syntax/podfile.html#platform`.
+Project successfully prepared (ios)
+Executing after-prepare hook from /Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/hooks/after-prepare/nativescript-dev-webpack.js
+Executing after-prepare hook from /Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/hooks/after-prepare/nativescript-unit-test-runner.js
+Building project...
+Xcode build...
+=== BUILD TARGET demo OF PROJECT demo WITH CONFIGURATION Debug ===
+ld: warning: Auto-Linking framework not found CoreServices
+=== BUILD TARGET demo OF PROJECT demo WITH CONFIGURATION Debug ===
+ld: warning: linking ObjC for iOS Simulator, but dylib (/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/internal/NativeScript.framework/NativeScript) was compiled for MacOSX
+ld: warning: ObjC dylib (/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/node_modules/tns-core-modules-widgets/platforms/ios/TNSWidgets.framework/TNSWidgets) was compiled for iOS Simulator, but dylibs others were compiled for MacOSX
+ld: warning: Auto-Linking framework not found CoreServices
+=== BUILD TARGET demo OF PROJECT demo WITH CONFIGURATION Debug ===
+/* com.apple.actool.document.warnings */
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/demo/Resources/Assets.xcassets:./AppIcon.appiconset: warning: A 1024x1024 app store icon is required for iOS apps
+/* com.apple.actool.document.notices */
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/demo/Resources/Assets.xcassets:./AppIcon.appiconset/[][iphone][57x57][][][1x][][]: notice: 57x57 app icons only apply to iPhone apps targeting releases of iOS prior to 7.0
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/demo/Resources/Assets.xcassets:./AppIcon.appiconset/[][iphone][57x57][][][2x][][]: notice: 57x57@2x app icons only apply to iPhone apps targeting releases of iOS prior to 7.0
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/demo/Resources/Assets.xcassets:./AppIcon.appiconset/[][ipad][50x50][][][1x][][]: notice: 50x50 iPad spotlight icons only apply to iPad apps targeting releases of iOS prior to 7.0
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/demo/Resources/Assets.xcassets:./AppIcon.appiconset/[][ipad][50x50][][][2x][][]: notice: 50x50 iPad spotlight icons only apply to iPad apps targeting releases of iOS prior to 7.0
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/demo/Resources/Assets.xcassets:./AppIcon.appiconset/[][ipad][72x72][][][1x][][]: notice: 72x72 app icons only apply to iPad apps targeting releases of iOS prior to 7.0
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/demo/Resources/Assets.xcassets:./AppIcon.appiconset/[][ipad][72x72][][][2x][][]: notice: 72x72@2x app icons only apply to iPad apps targeting releases of iOS prior to 7.0
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/demo/Resources/Assets.xcassets:./AppIcon.appiconset/[][ipad][76x76][][][1x][][]: notice: 76x76@1x app icons only apply to iPad apps targeting releases of iOS prior to 10.0.
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/demo/Resources/Assets.xcassets:./LaunchImage.launchimage/[iphone][736h][3x][portrait][full-screen][8.0]: notice: This launch image only applies to iOS 6.x and prior but the minimum deployment is 7.0 or later.
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/demo/Resources/Assets.xcassets:./LaunchImage.launchimage/[iphone][736h][3x][landscape][full-screen][8.0]: notice: This launch image only applies to iOS 6.x and prior but the minimum deployment is 7.0 or later.
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/demo/Resources/Assets.xcassets:./LaunchImage.launchimage/[iphone][667h][2x][portrait][full-screen][8.0]: notice: This launch image only applies to iOS 6.x and prior but the minimum deployment is 7.0 or later.
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/demo/Resources/Assets.xcassets:./LaunchImage.launchimage/[iphone][][1x][portrait][full-screen][]: notice: This launch image only applies to iOS 6.x and prior but the minimum deployment is 7.0 or later.
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/demo/Resources/Assets.xcassets:./LaunchImage.launchimage/[iphone][][2x][portrait][full-screen][]: notice: This launch image only applies to iOS 6.x and prior but the minimum deployment is 7.0 or later.
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/demo/Resources/Assets.xcassets:./LaunchImage.launchimage/[iphone][retina4][2x][portrait][full-screen][]: notice: This launch image only applies to iOS 6.x and prior but the minimum deployment is 7.0 or later.
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/demo/Resources/Assets.xcassets:./LaunchImage.launchimage/[ipad][][1x][portrait][full-screen][]: notice: This launch image only applies to iOS 6.x and prior but the minimum deployment is 7.0 or later.
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/demo/Resources/Assets.xcassets:./LaunchImage.launchimage/[ipad][][1x][landscape][full-screen][]: notice: This launch image only applies to iOS 6.x and prior but the minimum deployment is 7.0 or later.
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/demo/Resources/Assets.xcassets:./LaunchImage.launchimage/[ipad][][2x][portrait][full-screen][]: notice: This launch image only applies to iOS 6.x and prior but the minimum deployment is 7.0 or later.
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/demo/Resources/Assets.xcassets:./LaunchImage.launchimage/[ipad][][2x][landscape][full-screen][]: notice: This launch image only applies to iOS 6.x and prior but the minimum deployment is 7.0 or later.
+/* com.apple.actool.compilation-results */
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/AppIcon29x29.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/AppIcon29x29@2x.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/AppIcon29x29@3x.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/AppIcon40x40@2x.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/AppIcon40x40@3x.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/AppIcon57x57.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/AppIcon57x57@2x.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/AppIcon60x60@2x.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/AppIcon60x60@3x.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/AppIcon29x29~ipad.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/AppIcon29x29@2x~ipad.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/AppIcon40x40~ipad.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/AppIcon40x40@2x~ipad.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/AppIcon50x50~ipad.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/AppIcon50x50@2x~ipad.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/AppIcon72x72~ipad.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/AppIcon72x72@2x~ipad.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/AppIcon76x76~ipad.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/AppIcon76x76@2x~ipad.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/AppIcon83.5x83.5@2x~ipad.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/LaunchImage-800-Portrait-736h@3x.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/LaunchImage-800-Landscape-736h@3x.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/LaunchImage-800-667h@2x.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/LaunchImage-700@2x.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/LaunchImage-700-568h@2x.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/LaunchImage-700-Portrait~ipad.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/LaunchImage-700-Landscape~ipad.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/LaunchImage-700-Portrait@2x~ipad.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/LaunchImage-700-Landscape@2x~ipad.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/LaunchImage.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/LaunchImage@2x.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/LaunchImage-568h@2x.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/LaunchImage-Portrait~ipad.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/LaunchImage-Landscape~ipad.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/LaunchImage-Portrait@2x~ipad.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/LaunchImage-Landscape@2x~ipad.png
+/Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app/Assets.car
+/Users/jibon/Library/Developer/Xcode/DerivedData/demo-hkheeixyszzuaghcrcbegnmdmoss/Build/Intermediates.noindex/demo.build/Debug-iphonesimulator/demo.build/assetcatalog_generated_info.plist
+
+Project successfully built.
+The build result is located at: /Users/jibon/Desktop/test/nativescript-simple-libsodium/demo/platforms/ios/build/emulator/demo.app

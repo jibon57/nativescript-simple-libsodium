@@ -1,1 +1,108 @@
-# nativescript-simple-libsodium
+[![npm](https://img.shields.io/npm/v/nativescript-simple-libsodium.svg)](https://www.npmjs.com/package/nativescript-simple-libsodium)
+[![npm](https://img.shields.io/npm/dt/nativescript-simple-libsodium.svg?label=npm%20downloads)](https://www.npmjs.com/package/nativescript-simple-libsodium)
+
+
+# NativeScript Simple Libsodium
+
+[Sodium](https://github.com/jedisct1/libsodium) is a new, easy-to-use software library for encryption, decryption, signatures, password hashing and more. It's cross-compilable & support most of the modern devices. Using this plugin you will be able to use it directly with your NativeScript project.
+
+For iOS I have compiled it directly from source code. For Android I have used [Lazysodium](https://github.com/terl/lazysodium-android) native library.
+
+ **Note:** I am not an expert of neigher iOS nor Android. So, please contribute if you think something you can do better :)
+
+ ## Platforms supported 
+
+1. iOS
+2. Android
+
+Libsodium can be use with other programming languages too. You can get more references from here: https://libsodium.gitbook.io/doc/bindings_for_other_languages
+
+## Installation
+
+```javascript
+tns plugin add nativescript-simple-libsodium
+```
+
+## Usage 
+
+**Import**
+
+TS/Angular:
+
+```javascript
+import { SimpleLibsodium, AEDMethod, AEDValues, Base64Variant, Keybytes, Noncebytes } from 'nativescript-simple-libsodium';
+
+let simpleLibsodium = new SimpleLibsodium();
+```
+
+JavaScript:
+```javascript
+var mSimpleLibsodium = require("nativescript-simple-libsodium");
+var simpleLibsodium = new mSimpleLibsodium.SimpleLibsodium();
+```
+
+Please check the demo project for more details example.
+
+Generate Random Data:
+
+```javascript
+simpleLibsodium.generateRandomData();
+ // OR
+simpleLibsodium.generateKeyWithSuppliedString("Jibon Costa");
+```
+
+## Methods
+    
+| Methods | Description | Reference |
+| --- | --- | --- |
+| generateRandomData(length?: number) | Generate Random Data | https://libsodium.gitbook.io/doc/generating_random_data |
+| generateKeyWithSuppliedString(mykey: string, saltSize?: number) | Generate Random Data with Key. Algorithm: `crypto_pwhash_ALG_ARGON2I13` | https://libsodium.gitbook.io/doc/password_hashing/the_argon2i_function#key-derivation |
+| AEDEncrypt(method: AEDMethod, msg: string, key: any, nonce?: any, additionalMsg?: string) | AED Encryption | https://libsodium.gitbook.io/doc/secret-key_cryptography/aead |
+| AEDDecrypt(method: AEDMethod, encrypData: any, key: any, nonce: any, additionalMsg?: string) | AED Decryption | https://libsodium.gitbook.io/doc/secret-key_cryptography/aead |
+| secretBoxEncrypt(text: string, key: any, nonce?: any) | Authenticated encryption | https://libsodium.gitbook.io/doc/secret-key_cryptography/authenticated_encryption#combined-mode |
+| secretBoxOpen(encrypData: any, key: any, nonce: any) | Authenticated decryption | https://libsodium.gitbook.io/doc/secret-key_cryptography/authenticated_encryption#combined-mode |
+| xSalsa20Encrypt(message: string, key: any, nonce?: any) | Stream cipher | https://libsodium.gitbook.io/doc/advanced/stream_ciphers/xsalsa20 |
+| xSalsa20Decrypt(encrypData: any, key: any, nonce: any) | Stream cipher | https://libsodium.gitbook.io/doc/advanced/stream_ciphers/xsalsa20 |
+| boxEasy(msg: string, public_key: any, private_key: any, nonce?: any) | Authenticated encryption with key pair | https://libsodium.gitbook.io/doc/public-key_cryptography/authenticated_encryption |
+| boxOpenEasy(ciphertext: any, public_key: any, private_key: any, nonce: any) | Authenticated decryption with key pair | https://libsodium.gitbook.io/doc/public-key_cryptography/authenticated_encryption |
+| boxKeyPaired() | Key pair generation | https://libsodium.gitbook.io/doc/public-key_cryptography/authenticated_encryption#key-pair-generation |
+| passwordHash(password: string) | Password has for storage | https://libsodium.gitbook.io/doc/password_hashing/the_argon2i_function#password-storage |
+| passwordHashVerify(plainHash: any, password: string) | Password verification | https://libsodium.gitbook.io/doc/password_hashing/the_argon2i_function#password-storage |
+| binTohex(binary: any) | Hexadecimal encoding | https://libsodium.gitbook.io/doc/helpers#hexadecimal-encoding-decoding |
+| hexTobin(hex: string) | Hexadecimal decoding | https://libsodium.gitbook.io/doc/helpers#hexadecimal-encoding-decoding |
+| bytesToBase64(data: any) | Base64 encoding | https://libsodium.gitbook.io/doc/helpers#base64-encoding-decoding. |
+| base64Tobytes(base64String: string) | Base64 decoding | https://libsodium.gitbook.io/doc/helpers#base64-encoding-decoding |
+| stringTodata(text: string) | String text to Binary | Native Implementation |
+| dataTostring(data: any) | Binary to text | Native Implementation |
+
+
+
+**Note:** You can add more methods or API in your project easily. 
+
+Android:
+
+```javascript
+let simpleLibsodium = new SimpleLibsodium();
+let sodium = simpleLibsodium.sodium
+// now you can call any method/api from core sodium package.
+sodium.crypto_secretbox_keygen();
+```
+
+iOS:
+
+```javascript
+// From iOS you will be able to call the methods directly.
+crypto_secretbox_keygen();
+```
+
+For getting typescript typings support you can add following lines in you `references.d.ts` file:
+
+```javascript
+/// <reference path="./node_modules/nativescript-simple-libsodium/typingz/android.d.ts" />
+/// <reference path="./node_modules/nativescript-simple-libsodium/typingz/objc!sodium.d.ts" />
+```
+
+## License
+
+Apache License Version 2.0, January 2004
+

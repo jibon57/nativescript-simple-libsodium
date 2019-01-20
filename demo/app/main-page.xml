@@ -1,0 +1,11 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="pageLoaded" class="page"
+  xmlns:ui="nativescript-simple-libsodium">
+  <StackLayout class="p-20">
+    <Button height="44" tap="{{generateRandomData}}" text="Generate Random Data"></Button>
+    <Button height="44" tap="{{AEDEncrypt}}" text="AED XCHACHA20POLY1305 IETF"></Button>
+    <Button height="44" tap="{{secretBox}}" text="Secret Box"></Button>
+    <Button height="44" tap="{{xSalsa20}}" text="Salsa20"></Button>
+    <Button height="44" tap="{{boxEasy}}" text="Box Easy"></Button>
+    <Button height="44" tap="{{passwordHash}}" text="Password Hash"></Button>
+  </StackLayout>
+</Page>

@@ -1,0 +1,14 @@
+/* Include.gradle configuration: http://docs.nativescript.org/plugins/plugins#includegradle-specification */
+
+android {
+	repositories {
+	    maven {
+	        url  "https://dl.bintray.com/terl/lazysodium-maven"
+	    }
+	}
+}
+
+dependencies {
+    implementation "com.goterl.lazycode:lazysodium-android:+@aar"
+    implementation "net.java.dev.jna:jna:4.5.2@aar"
+}

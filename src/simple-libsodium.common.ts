@@ -1,0 +1,52 @@
+import { Observable } from 'tns-core-modules/data/observable';
+
+export class Common extends Observable {
+  constructor() {
+    super();
+  }
+}
+
+export const enum AEDMethod {
+  CHACHA20_POLY1305 = 0,
+  CHACHA20_POLY1305_IETF = 1,
+  XCHACHA20_POLY1305_IETF = 2,
+  AES256GCM = 3,
+}
+
+export const enum AEDValues {
+
+  CHACHA20POLY1305_KEYBYTES = 32,
+  CHACHA20POLY1305_NPUBBYTES = 8,
+  CHACHA20POLY1305_ABYTES = 16,
+
+  CHACHA20POLY1305_IETF_ABYTES = 16,
+  CHACHA20POLY1305_IETF_KEYBYTES = 32,
+  CHACHA20POLY1305_IETF_NPUBBYTES = 12,
+
+  XCHACHA20POLY1305_IETF_KEYBYTES = 32,
+  XCHACHA20POLY1305_IETF_ABYTES = 16,
+  XCHACHA20POLY1305_IETF_NPUBBYTES = 24,
+
+  AES256GCM_KEYBYTES = 32,
+  AES256GCM_NSECBYTES = 0,
+  AES256GCM_NPUBBYTES = 12,
+  AES256GCM_ABYTES = 16,
+}
+
+export const enum Base64Variant {
+  sodium_base64_VARIANT_ORIGINAL = 1,
+  sodium_base64_VARIANT_ORIGINAL_NO_PADDING = 3,
+  sodium_base64_VARIANT_URLSAFE = 5,
+  sodium_base64_VARIANT_URLSAFE_NO_PADDING = 7,
+}
+
+export declare const enum Keybytes {
+  SECRETBOX_KEYBYTES = 32,
+  STREAM_KEYBYTES = 32,
+}
+
+export declare const enum Noncebytes {
+  SECRETBOX_NONCEBYTES = 24,
+  STREAM_NONCEBYTES = 24,
+  BOX_NONCEBYTES = 24
+}

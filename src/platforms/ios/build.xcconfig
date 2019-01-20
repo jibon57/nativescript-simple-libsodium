@@ -1,0 +1,2 @@
+STRIPFLAGS=$(inherited) -s ${PROJECT_DIR}/../../node_modules/nativescript-simple-libsodium/platforms/ios/sodium_defined.txt
+EXPORTED_SYMBOLS_FILE = ${PROJECT_DIR}/../../node_modules/nativescript-simple-libsodium/platforms/ios/sodium_defined.txt
