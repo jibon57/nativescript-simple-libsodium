@@ -79,7 +79,7 @@ export class HelloWorldModel extends Observable {
     let bob = this.simpleLibsodium.boxKeyPaired();
     let alice = this.simpleLibsodium.boxKeyPaired();
 
-    // Bob sending message to Alice. So, here will need alice's public key & Bob's private/secret key
+    // Bob sending message to Alice. So, here will need Alice's public key & Bob's private/secret key
     let enc = this.simpleLibsodium.boxEasy("Hello World", alice.public_key, bob.private_key);
 
     console.dir(enc);

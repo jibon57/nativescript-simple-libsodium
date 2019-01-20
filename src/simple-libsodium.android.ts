@@ -19,12 +19,16 @@ export class SimpleLibsodium extends Common {
 
         this.sodium = sodium;
         this.lazySodium = lazySodium;
+
+        this.sodium.sodium_init();
     }
 
     /**
      * generateRandomData
      */
     public generateRandomData(length: number = 32) {
+
+        this.sodium.sodium_init();
 
         let ramdom = this.lazySodium.randomBytesBuf(length);
 
@@ -38,6 +42,8 @@ export class SimpleLibsodium extends Common {
      * generateKeyWithSuppliedString
      */
     public generateKeyWithSuppliedString(mykey: string, length: number = 32) {
+
+        this.sodium.sodium_init();
 
         let alg = Interfaces.PwHash.Alg.getDefault();
         let salt = this.generateRandomData(Interfaces.PwHash.SALTBYTES);
@@ -55,6 +61,8 @@ export class SimpleLibsodium extends Common {
      * AEDEncrypt
      */
     public AEDEncrypt(method: AEDMethod, msg: string, key: any, nonce: any = '', additionalMsg: string = '') {
+
+        this.sodium.sodium_init();
 
         let outData;
         let output = {
@@ -148,6 +156,8 @@ export class SimpleLibsodium extends Common {
      */
     public AEDDecrypt(method: AEDMethod, encrypData: any, key: any, nonce: any, additionalMsg: string = '') {
 
+        this.sodium.sodium_init();
+
         let outData;
         encrypData = this.binTohex(encrypData);
         key = Utils.Key.fromBytes(key);
@@ -194,6 +204,8 @@ export class SimpleLibsodium extends Common {
      */
     public secretBoxEncrypt(message: string, key: any, nonce: any = '') {
 
+        this.sodium.sodium_init();
+
         if (key.length !== Interfaces.SecretBox.KEYBYTES) {
             return {
                 'status': false,
@@ -224,6 +236,8 @@ export class SimpleLibsodium extends Common {
      */
     public secretBoxOpen(encrypData: any, key: any, nonce: any) {
 
+        this.sodium.sodium_init();
+
         let outData = Array.create("byte", encrypData.length - Interfaces.SecretBox.MACBYTES);
 
         this.sodium.crypto_secretbox_open_easy(outData, encrypData, encrypData.length, nonce, key);
@@ -238,6 +252,8 @@ export class SimpleLibsodium extends Common {
      * xSalsa20Encrypt
      */
     public xSalsa20Encrypt(message: string, key: any, nonce: any = '') {
+
+        this.sodium.sodium_init();
 
         if (nonce === '') {
             nonce = this.generateRandomData(Interfaces.Stream.SALSA20_NONCEBYTES).raw;
@@ -266,6 +282,8 @@ export class SimpleLibsodium extends Common {
      */
     public xSalsa20Decrypt(encrypData: any, key: any, nonce: any) {
 
+        this.sodium.sodium_init();
+
         key = Utils.Key.fromBytes(key);
         encrypData = this.binTohex(encrypData);
 
@@ -281,6 +299,8 @@ export class SimpleLibsodium extends Common {
      * boxEasy
      */
     public boxEasy(msg: string, public_key: any, private_key: any, nonce: any = "") {
+
+        this.sodium.sodium_init();
 
         let keyPair = new Utils.KeyPair(Utils.Key.fromBytes(public_key), Utils.Key.fromBytes(private_key));
 
@@ -303,6 +323,8 @@ export class SimpleLibsodium extends Common {
      */
     public boxOpenEasy(ciphertext: any, nonce: any, public_key: any, private_key: any) {
 
+        this.sodium.sodium_init();
+
         let keyPair = new Utils.KeyPair(Utils.Key.fromBytes(public_key), Utils.Key.fromBytes(private_key));
 
         ciphertext = this.binTohex(ciphertext);
@@ -319,6 +341,9 @@ export class SimpleLibsodium extends Common {
      * boxKeyPaired
     */
     public boxKeyPaired() {
+
+        this.sodium.sodium_init();
+
         let keys = this.lazySodium.cryptoBoxKeypair();
         return {
             'private_key': keys.getSecretKey().getAsBytes(),
@@ -330,6 +355,8 @@ export class SimpleLibsodium extends Common {
      * passwordHash
      */
     public passwordHash(password: string) {
+
+        this.sodium.sodium_init();
 
         let outData = this.lazySodium.cryptoPwHashStrRemoveNulls(password, Interfaces.PwHash.OPSLIMIT_INTERACTIVE, Interfaces.PwHash.MEMLIMIT_INTERACTIVE);
 
@@ -348,6 +375,8 @@ export class SimpleLibsodium extends Common {
      */
     public passwordHashVerify(plainHash: any, password: string) {
 
+        this.sodium.sodium_init();
+
         plainHash = this.stringTodata(plainHash);
         plainHash = this.binTohex(plainHash);
 
@@ -358,6 +387,7 @@ export class SimpleLibsodium extends Common {
      * binTohex
      */
     public binTohex(binary: any) {
+        this.sodium.sodium_init();
         return this.lazySodium.sodiumBin2Hex(binary);
     }
 
@@ -365,6 +395,7 @@ export class SimpleLibsodium extends Common {
      * hexTobin
      */
     public hexTobin(hex: any) {
+        this.sodium.sodium_init();
         return this.lazySodium.sodiumHex2Bin(hex);
     }
 
@@ -372,6 +403,8 @@ export class SimpleLibsodium extends Common {
      * bytesToBase64
      */
     public bytesToBase64(data: any, variant: Base64Variant = Base64Variant.sodium_base64_VARIANT_ORIGINAL) {
+
+        this.sodium.sodium_init();
 
         let encoded_len = this.sodium.sodium_base64_encoded_len(data.length, variant);
         let out = Array.create("byte", encoded_len);
@@ -384,6 +417,8 @@ export class SimpleLibsodium extends Common {
      * base642bytes
      */
     public base64Tobytes(base64String: string, variant: Base64Variant = Base64Variant.sodium_base64_VARIANT_ORIGINAL) {
+
+        this.sodium.sodium_init();
 
         let rawData: any = this.stringTodata(base64String);
         let binBytesCapacity = Math.round((rawData.length * 3 / 4) - 1);

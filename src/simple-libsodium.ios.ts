@@ -2,11 +2,18 @@ import { Common, AEDMethod, AEDValues, Base64Variant } from "./simple-libsodium.
 
 export class SimpleLibsodium extends Common {
 
+    constructor() {
+
+        super();
+        sodium_init();
+    }
+
     /**
      * generateRandomData
      */
     public generateRandomData(length: number = 32) {
 
+        sodium_init();
         let outData = NSMutableData.dataWithLength(length);
         randombytes_buf(outData.mutableBytes, length);
 
@@ -21,6 +28,7 @@ export class SimpleLibsodium extends Common {
      */
     public generateKeyWithSuppliedString(mykey: string, length = 32) {
 
+        sodium_init();
         let out: any = NSMutableData.dataWithLength(length);
         let passwd: any = this.nsstringTOnsdata(mykey);
         let salt: any = this.generateRandomData(crypto_pwhash_saltbytes());
@@ -39,6 +47,7 @@ export class SimpleLibsodium extends Common {
      */
     public AEDEncrypt(method: AEDMethod, msg: string, key: NSData, nonce: NSData = null, additionalMsg: string = '') {
 
+        sodium_init();
         let outData, ciphertext_len, additionalData, rawNonce;
         let nKey: any = key;
 
@@ -169,6 +178,7 @@ export class SimpleLibsodium extends Common {
      */
     public AEDDecrypt(method: AEDMethod, encrypData: NSData, key: NSData, nonce: NSData, additionalMsg: string = '') {
 
+        sodium_init();
         let rawAdditionalMsg;
         let rawNonce: any = nonce;
         let rawKey: any = key;
@@ -227,6 +237,7 @@ export class SimpleLibsodium extends Common {
      */
     public secretBoxEncrypt(text: string, key: NSData, nonce: NSData = null) {
 
+        sodium_init();
         let msg: any = this.nsstringTOnsdata(text);
         let outLen = crypto_secretbox_macbytes() + msg.length;
         let outData: any = NSMutableData.dataWithLength(outLen);
@@ -259,6 +270,7 @@ export class SimpleLibsodium extends Common {
      */
     public secretBoxOpen(encrypData: NSData, key: NSData, nonce: NSData) {
 
+        sodium_init();
         let rawData: any = encrypData;
         let rawNonce: any = nonce;
         let rawKey: any = key;
@@ -277,6 +289,8 @@ export class SimpleLibsodium extends Common {
      * xSalsa20Encrypt
      */
     public xSalsa20Encrypt(message: string, key: NSData, nonce: NSData = null) {
+
+        sodium_init();
         let rawNonce: any = nonce;
         let rawKey: any = key;
         if (nonce == null) {
@@ -309,6 +323,7 @@ export class SimpleLibsodium extends Common {
      */
     public xSalsa20Decrypt(encrypData: NSData, key: NSData, nonce: NSData) {
 
+        sodium_init();
         let rawNonce: any = nonce;
         let rawKey: any = key;
         let msg: any = encrypData;
@@ -328,6 +343,7 @@ export class SimpleLibsodium extends Common {
      */
     public boxEasy(msg: string, public_key: any, private_key: any, nonce: NSData = null) {
 
+        sodium_init();
         let rawMsg: any = this.nsstringTOnsdata(msg);
         let outLen = rawMsg.length + crypto_box_macbytes();
         let outData: any = NSMutableData.dataWithLength(outLen);
@@ -352,6 +368,7 @@ export class SimpleLibsodium extends Common {
      */
     public boxOpenEasy(ciphertext: NSData, nonce: NSData, public_key: any, private_key: any) {
 
+        sodium_init();
         let rawNonce: any = nonce;
         let msg: any = ciphertext;
 
@@ -371,6 +388,7 @@ export class SimpleLibsodium extends Common {
      */
     public boxKeyPaired() {
 
+        sodium_init();
         let public_key: any = NSMutableData.dataWithLength(crypto_box_publickeybytes());
         let private_key: any = NSMutableData.dataWithLength(crypto_box_secretkeybytes());
         crypto_box_keypair(public_key.bytes, private_key.bytes);
@@ -386,6 +404,7 @@ export class SimpleLibsodium extends Common {
      */
     public passwordHash(password: string) {
 
+        sodium_init();
         let passwordData: any = this.nsstringTOnsdata(password);
         let output: any = NSMutableData.dataWithLength(crypto_pwhash_strbytes());
 
@@ -403,6 +422,7 @@ export class SimpleLibsodium extends Common {
      */
     public passwordHashVerify(plainHash, password: string): boolean {
 
+        sodium_init();
         let passwordData: any = this.nsstringTOnsdata(password);
         let rawCrypto: any = this.nsstringTOnsdata(plainHash);
 
@@ -419,6 +439,7 @@ export class SimpleLibsodium extends Common {
      */
     public binTohex(binary: NSData): NSString {
 
+        sodium_init();
         let rawBinary: any = binary;
         let hex_maxlen = rawBinary.length * 2 + 1;
         let hex: any = NSMutableData.dataWithLength(hex_maxlen);
@@ -433,6 +454,7 @@ export class SimpleLibsodium extends Common {
      */
     public hexTobin(hex: string): NSData {
 
+        sodium_init();
         let hexData: any = this.nsstringTOnsdata(hex);
 
         let bin_maxlen = hexData.length / 2;
@@ -448,6 +470,7 @@ export class SimpleLibsodium extends Common {
      */
     public bytesToBase64(data: NSData, variant: Base64Variant = Base64Variant.sodium_base64_VARIANT_ORIGINAL): NSString {
 
+        sodium_init();
         let rawData: any = data;
         let encoded_len = sodium_base64_encoded_len(data.length, variant);
         let out: any = NSMutableData.dataWithLength(encoded_len);
@@ -464,6 +487,7 @@ export class SimpleLibsodium extends Common {
      */
     public base64Tobytes(base64String: string, variant: Base64Variant = Base64Variant.sodium_base64_VARIANT_ORIGINAL): NSData {
 
+        sodium_init();
         let rawData: any = this.nsstringTOnsdata(base64String);
         let binBytesCapacity = Math.round((rawData.length * 3 / 4) - 1);
         let out: any = NSMutableData.dataWithLength(binBytesCapacity);
