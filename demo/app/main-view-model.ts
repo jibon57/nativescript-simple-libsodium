@@ -17,7 +17,7 @@ export class HelloWorldModel extends Observable {
 
     console.dir(this.simpleLibsodium.generateRandomData());
 
-    console.dir(this.simpleLibsodium.generateKeyWithSuppliedString("Jibon Costa"));
+    console.dir(this.simpleLibsodium.generateKeyWithSuppliedString("Jibon Costa")); // Keep in mind that in order to produce the same key from the same password, the same algorithm, the same salt, and the same values for opslimit and memlimit have to be used. Therefore, these parameters have to be stored for each user.
   }
 
   /**

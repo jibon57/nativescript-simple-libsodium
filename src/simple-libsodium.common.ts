@@ -43,6 +43,7 @@ export const enum Base64Variant {
 export declare const enum Keybytes {
   SECRETBOX_KEYBYTES = 32,
   STREAM_KEYBYTES = 32,
+  PWHASH_SALTBYTES = 16
 }
 
 export declare const enum Noncebytes {

@@ -1,4 +1,4 @@
-import { Common, AEDMethod, AEDValues, Base64Variant } from "./simple-libsodium.common";
+import { Common, AEDMethod, AEDValues, Base64Variant, Keybytes } from "./simple-libsodium.common";
 
 export class SimpleLibsodium extends Common {
 
@@ -26,19 +26,28 @@ export class SimpleLibsodium extends Common {
     /**
      * generateKeyWithSuppliedString
      */
-    public generateKeyWithSuppliedString(mykey: string, length = 32) {
+    public generateKeyWithSuppliedString(mykey: string, length = 32, salt: NSData = null) {
 
         sodium_init();
         let out: any = NSMutableData.dataWithLength(length);
         let passwd: any = this.nsstringTOnsdata(mykey);
-        let salt: any = this.generateRandomData(crypto_pwhash_saltbytes());
+        let rawSalt;
+
+        if (salt === null) {
+            rawSalt = this.generateRandomData(Keybytes.PWHASH_SALTBYTES).raw; // crypto_pwhash_saltbytes()
+        } else {
+            rawSalt = salt;
+        }
+
         let alg = crypto_pwhash_alg_argon2id13(); // crypto_pwhash_alg_default();
 
-        crypto_pwhash(out.mutableBytes, length, passwd.bytes, passwd.length, salt.raw.bytes, crypto_pwhash_opslimit_interactive(), crypto_pwhash_memlimit_interactive(), alg);
+        crypto_pwhash(out.mutableBytes, length, passwd.bytes, passwd.length, rawSalt.bytes, crypto_pwhash_opslimit_interactive(), crypto_pwhash_memlimit_interactive(), alg);
 
         return {
             'hexString': this.binTohex(out),
-            'raw': out
+            'raw': out,
+            'saltHexString': this.binTohex(rawSalt),
+            'rawSalt': rawSalt
         };
     }
 

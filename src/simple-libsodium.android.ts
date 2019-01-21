@@ -1,4 +1,4 @@
-import { Common, AEDMethod, AEDValues, Base64Variant } from './simple-libsodium.common';
+import { Common, AEDMethod, AEDValues, Base64Variant, Keybytes } from './simple-libsodium.common';
 
 const SodiumAndroid = com.goterl.lazycode.lazysodium.SodiumAndroid;
 const LazySodiumAndroid = com.goterl.lazycode.lazysodium.LazySodiumAndroid;
@@ -41,18 +41,21 @@ export class SimpleLibsodium extends Common {
     /**
      * generateKeyWithSuppliedString
      */
-    public generateKeyWithSuppliedString(mykey: string, length: number = 32) {
+    public generateKeyWithSuppliedString(mykey: string, length: number = 32, salt: any = '') {
 
         this.sodium.sodium_init();
 
         let alg = Interfaces.PwHash.Alg.getDefault();
-        let salt = this.generateRandomData(Interfaces.PwHash.SALTBYTES);
-
-        let out = this.lazySodium.cryptoPwHash(mykey, length, salt.raw, Interfaces.PwHash.OPSLIMIT_INTERACTIVE, Interfaces.PwHash.MEMLIMIT_INTERACTIVE, alg);
+        if (salt === "") {
+            salt = this.generateRandomData(Keybytes.PWHASH_SALTBYTES).raw; // Interfaces.PwHash.SALTBYTES
+        }
+        let out = this.lazySodium.cryptoPwHash(mykey, length, salt, Interfaces.PwHash.OPSLIMIT_INTERACTIVE, Interfaces.PwHash.MEMLIMIT_INTERACTIVE, alg);
 
         return {
             'hexString': out,
-            'raw': this.hexTobin(out)
+            'raw': this.hexTobin(out),
+            'saltHexString': this.binTohex(salt),
+            'rawSalt': salt
         };
 
     }

@@ -34,6 +34,7 @@ export declare const enum Base64Variant {
 export declare const enum Keybytes {
   SECRETBOX_KEYBYTES = 32,
   STREAM_KEYBYTES = 32,
+  PWHASH_SALTBYTES = 16
 }
 
 export declare const enum Noncebytes {
@@ -52,9 +53,11 @@ export declare class SimpleLibsodium extends Common {
     'hexString': string;
     'raw': any;
   };
-  generateKeyWithSuppliedString(mykey: string, length?: number): {
+  generateKeyWithSuppliedString(mykey: string, length?: number, salt?: any): {
     'hexString': string;
     'raw': any;
+    'saltHexString': string;
+    'rawSalt': any;
   };
   AEDEncrypt(method: AEDMethod, msg: string, key: any, nonce?: any, additionalMsg?: string): {
     'status': boolean;

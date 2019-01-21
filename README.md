@@ -48,7 +48,7 @@ Please check the demo project for more details example.
 ```javascript
 simpleLibsodium.generateRandomData();
  // OR
-simpleLibsodium.generateKeyWithSuppliedString("Jibon Costa");
+simpleLibsodium.generateKeyWithSuppliedString("Jibon Costa"); // Keep in mind that in order to produce the same key from the same password, the same algorithm, the same salt, and the same values for opslimit and memlimit have to be used. Therefore, these parameters have to be stored for each user.
 ```
 
 **AED Encryption/Decryption:**
@@ -127,12 +127,12 @@ if (this.simpleLibsodium.passwordHashVerify(enc.plainHash, "MyPassword")) {
 }
 ```
 
-## Methods
+## Methods/API
     
 | Methods | Description | Reference |
 | --- | --- | --- |
 | generateRandomData(length?: number) | Generate Random Data | https://libsodium.gitbook.io/doc/generating_random_data |
-| generateKeyWithSuppliedString(mykey: string, length?: number) | Generate Random Data with Key. Algorithm: `crypto_pwhash_ALG_ARGON2I13` | https://libsodium.gitbook.io/doc/password_hashing/the_argon2i_function#key-derivation |
+| generateKeyWithSuppliedString(mykey: string, length?: number, salt?: any) | Generate Random Data with Key. Algorithm: `crypto_pwhash_ALG_ARGON2I13`, opslimit: `crypto_pwhash_OPSLIMIT_INTERACTIVE`, memlimit: `crypto_pwhash_MEMLIMIT_INTERACTIVE`. If you don't provide anything for `salt` then it will generate automatically & return back as output. Keep in mind that in order to produce the same key from the same password, the same algorithm, the same salt, and the same values for opslimit and memlimit have to be used. | https://libsodium.gitbook.io/doc/password_hashing/the_argon2i_function#key-derivation |
 | AEDEncrypt(method: AEDMethod, msg: string, key: any, nonce?: any, additionalMsg?: string) | AED Encryption. Here `nonce` & `additionalMsg` are optional. If you don't insert anything as `nonce` then it will generate `nonce` automatically. If you don't insert anything as `additionalMsg` then `nonce` will be use as `additionalMsg`. | https://libsodium.gitbook.io/doc/secret-key_cryptography/aead |
 | AEDDecrypt(method: AEDMethod, encrypData: any, key: any, nonce: any, additionalMsg?: string) | AED Decryption. Here `encrypData`, `key` & `nonce` should need to be binary data. If you have `Hexadecimal` or `base64` string then you will need to convert before using. In this case you can use `hexTobin()` or `base64Tobytes()` methods to convert. | https://libsodium.gitbook.io/doc/secret-key_cryptography/aead |
 | secretBoxEncrypt(text: string, key: any, nonce?: any) | Authenticated encryption. If you don't insert anything as `nonce` then it will generate `nonce` automatically. | https://libsodium.gitbook.io/doc/secret-key_cryptography/authenticated_encryption#combined-mode |
