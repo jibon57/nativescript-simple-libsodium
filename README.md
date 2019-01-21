@@ -142,7 +142,7 @@ if (this.simpleLibsodium.passwordHashVerify(enc.plainHash, "MyPassword")) {
 | boxEasy(msg: string, public_key: any, private_key: any, nonce?: any) | Authenticated encryption with key pair. If you don't insert anything as `nonce` then it will generate `nonce` automatically. | https://libsodium.gitbook.io/doc/public-key_cryptography/authenticated_encryption |
 | boxOpenEasy(ciphertext: any, public_key: any, private_key: any, nonce: any) | Authenticated decryption with key pair. Here `ciphertext`, `public_key`, `private_key` & `nonce` should need to be binary data. If you have `Hexadecimal` or `base64` string then you will need to convert before using. In this case you can use `hexTobin()` or `base64Tobytes()` methods to convert.  | https://libsodium.gitbook.io/doc/public-key_cryptography/authenticated_encryption |
 | boxKeyPaired() | Key pair generation | https://libsodium.gitbook.io/doc/public-key_cryptography/authenticated_encryption#key-pair-generation |
-| passwordHash(password: string) | Password has for storage | https://libsodium.gitbook.io/doc/password_hashing/the_argon2i_function#password-storage |
+| passwordHash(password: string) | Password hash for storage | https://libsodium.gitbook.io/doc/password_hashing/the_argon2i_function#password-storage |
 | passwordHashVerify(plainHash: any, password: string) | Password verification. Here the value `plainHash` should need to plain text/string. | https://libsodium.gitbook.io/doc/password_hashing/the_argon2i_function#password-storage |
 | binTohex(binary: any) | Hexadecimal encoding | https://libsodium.gitbook.io/doc/helpers#hexadecimal-encoding-decoding |
 | hexTobin(hex: string) | Hexadecimal decoding | https://libsodium.gitbook.io/doc/helpers#hexadecimal-encoding-decoding |
