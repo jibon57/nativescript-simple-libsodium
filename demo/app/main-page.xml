@@ -7,5 +7,7 @@
     <Button height="44" tap="{{xSalsa20}}" text="Salsa20"></Button>
     <Button height="44" tap="{{boxEasy}}" text="Box Easy"></Button>
     <Button height="44" tap="{{passwordHash}}" text="Password Hash"></Button>
+    <Button height="44" tap="{{cryptoAuth}}" text="Crypto Auth"></Button>
+    <Button height="44" tap="{{sha2hash}}" text="SHA512"></Button>
   </StackLayout>
 </Page>

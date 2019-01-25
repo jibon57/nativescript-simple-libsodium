@@ -53,7 +53,7 @@ export declare class SimpleLibsodium extends Common {
     'hexString': string;
     'raw': any;
   };
-  generateKeyWithSuppliedString(mykey: string, length?: number, salt?: any): {
+  generateKeyWithSuppliedString(mykey: string, length?: number, salt?: any, opslimit?: number, memlimit?: number): {
     'hexString': string;
     'raw': any;
     'saltHexString': string;
@@ -106,7 +106,7 @@ export declare class SimpleLibsodium extends Common {
     'private_key': any;
     'public_key': any;
   };
-  passwordHash(password: string): {
+  passwordHash(password: string, opslimit?: number, memlimit?: number): {
     'plainHash': string;
     'hashHexString': string;
     'rawHash': any;
@@ -116,6 +116,17 @@ export declare class SimpleLibsodium extends Common {
   hexTobin(hex: string): any;
   bytesToBase64(data: any, variant?: Base64Variant): string;
   base64Tobytes(base64String: string, variant?: Base64Variant): any;
+  cryptoAuth(msg: string): {
+    'CryptedHexString': string;
+    'rawCrypted': any;
+    'KeyHexString': string;
+    'rawKey': any;
+  };
+  cryptoAuthVerify(ciphertext: any, msg: string, key: any): boolean;
+  SHA2Hash(msg: string, type?: number): {
+    'hexString': string;
+    'raw': any;
+  };
   stringTodata(text: string): any;
   dataTostring(data: any): any;
 }

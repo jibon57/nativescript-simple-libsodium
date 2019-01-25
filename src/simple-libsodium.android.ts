@@ -41,7 +41,7 @@ export class SimpleLibsodium extends Common {
     /**
      * generateKeyWithSuppliedString
      */
-    public generateKeyWithSuppliedString(mykey: string, length: number = 32, salt: any = '') {
+    public generateKeyWithSuppliedString(mykey: string, length: number = 32, salt: any = '', opslimit = Interfaces.PwHash.OPSLIMIT_MIN, memlimit = Interfaces.PwHash.MEMLIMIT_MIN) {
 
         this.sodium.sodium_init();
 
@@ -49,7 +49,7 @@ export class SimpleLibsodium extends Common {
         if (salt === "") {
             salt = this.generateRandomData(Keybytes.PWHASH_SALTBYTES).raw; // Interfaces.PwHash.SALTBYTES
         }
-        let out = this.lazySodium.cryptoPwHash(mykey, length, salt, Interfaces.PwHash.OPSLIMIT_INTERACTIVE, Interfaces.PwHash.MEMLIMIT_INTERACTIVE, alg);
+        let out = this.lazySodium.cryptoPwHash(mykey, length, salt, opslimit, memlimit, alg);
 
         return {
             'hexString': out,
@@ -357,11 +357,11 @@ export class SimpleLibsodium extends Common {
     /**
      * passwordHash
      */
-    public passwordHash(password: string) {
+    public passwordHash(password: string, opslimit = Interfaces.PwHash.OPSLIMIT_INTERACTIVE, memlimit = Interfaces.PwHash.MEMLIMIT_INTERACTIVE) {
 
         this.sodium.sodium_init();
 
-        let outData = this.lazySodium.cryptoPwHashStrRemoveNulls(password, Interfaces.PwHash.OPSLIMIT_INTERACTIVE, Interfaces.PwHash.MEMLIMIT_INTERACTIVE);
+        let outData = this.lazySodium.cryptoPwHashStrRemoveNulls(password, opslimit, memlimit);
 
         let rawHash = this.hexTobin(outData);
         let plainHash = this.dataTostring(rawHash);
@@ -431,6 +431,56 @@ export class SimpleLibsodium extends Common {
         this.sodium.sodium_base642bin(outData, binBytesCapacity, rawData, rawData.length, null, 0, null, variant);
 
         return outData;
+    }
+
+    /**
+     * cryptoAuth
+     */
+    public cryptoAuth(msg: string) {
+
+        this.sodium.sodium_init();
+        let key = this.lazySodium.cryptoAuthKeygen();
+
+        let outData = this.lazySodium.cryptoAuth(msg, key);
+
+        return {
+            'CryptedHexString': outData,
+            'rawCrypted': this.hexTobin(outData),
+            'KeyHexString': key.getAsHexString(),
+            'rawKey': key.getAsBytes()
+        };
+    }
+
+    /**
+     * cryptoAuthVerify
+     */
+    public cryptoAuthVerify(ciphertext: any, msg: string, key: any) {
+
+        this.sodium.sodium_init();
+        ciphertext = this.binTohex(ciphertext);
+        key = Utils.Key.fromBytes(key)
+
+        return this.lazySodium.cryptoAuthVerify(ciphertext, msg, key);
+    }
+
+    /**
+     * SHA2Hash
+     */
+    public SHA2Hash(msg: string, type: number = 256) {
+
+        this.sodium.sodium_init();
+        let outData;
+
+        if (type == 256) {
+            outData = this.lazySodium.cryptoHashSha256(msg);
+        } else {
+            outData = this.lazySodium.cryptoHashSha512(msg);
+        }
+
+        return {
+            'hexString': outData,
+            'raw': this.hexTobin(outData)
+        };
     }
 
     /**

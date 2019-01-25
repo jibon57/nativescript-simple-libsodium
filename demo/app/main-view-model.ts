@@ -105,5 +105,29 @@ export class HelloWorldModel extends Observable {
       console.log("Password invalid!");
     }
   }
+
+  /**
+   * cryptoAuth
+   */
+  public cryptoAuth() {
+
+    let enc = this.simpleLibsodium.cryptoAuth("Jibon Costa");
+
+    console.dir(enc);
+
+    if (this.simpleLibsodium.cryptoAuthVerify(enc.rawCrypted, "Jibon Costa", enc.rawKey)) {
+      console.log("Matched !")
+    } else {
+      console.log("Didn't match")
+    }
+  }
+
+  /**
+   * sha2hash
+   */
+  public sha2hash() {
+    let enc = this.simpleLibsodium.SHA2Hash("MyPassword", 512); // or 256
+    console.dir(enc);
+  }
 }
 

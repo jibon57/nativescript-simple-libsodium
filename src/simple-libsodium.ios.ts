@@ -26,7 +26,7 @@ export class SimpleLibsodium extends Common {
     /**
      * generateKeyWithSuppliedString
      */
-    public generateKeyWithSuppliedString(mykey: string, length = 32, salt: NSData = null) {
+    public generateKeyWithSuppliedString(mykey: string, length = 32, salt: NSData = null, opslimit = crypto_pwhash_opslimit_min(), memlimit = crypto_pwhash_memlimit_min()) {
 
         sodium_init();
         let out: any = NSMutableData.dataWithLength(length);
@@ -41,7 +41,7 @@ export class SimpleLibsodium extends Common {
 
         let alg = crypto_pwhash_alg_argon2id13(); // crypto_pwhash_alg_default();
 
-        crypto_pwhash(out.mutableBytes, length, passwd.bytes, passwd.length, rawSalt.bytes, crypto_pwhash_opslimit_interactive(), crypto_pwhash_memlimit_interactive(), alg);
+        crypto_pwhash(out.mutableBytes, length, passwd.bytes, passwd.length, rawSalt.bytes, opslimit, memlimit, alg);
 
         return {
             'hexString': this.binTohex(out),
@@ -411,13 +411,13 @@ export class SimpleLibsodium extends Common {
     /**
      * passwordHash
      */
-    public passwordHash(password: string) {
+    public passwordHash(password: string, opslimit = crypto_pwhash_opslimit_interactive(), memlimit = crypto_pwhash_memlimit_interactive()) {
 
         sodium_init();
         let passwordData: any = this.nsstringTOnsdata(password);
         let output: any = NSMutableData.dataWithLength(crypto_pwhash_strbytes());
 
-        crypto_pwhash_str(output.bytes, passwordData.bytes, passwordData.length, crypto_pwhash_opslimit_interactive(), crypto_pwhash_memlimit_interactive());
+        crypto_pwhash_str(output.bytes, passwordData.bytes, passwordData.length, opslimit, memlimit);
 
         return {
             'plainHash': this.nsdataTOnsstring(output),
@@ -506,6 +506,63 @@ export class SimpleLibsodium extends Common {
         return out;
 
         // return NSData.alloc().initWithBase64Encoding(base64String);
+    }
+
+    /**
+     * cryptoAuth
+     */
+    public cryptoAuth(msg: string) {
+
+        sodium_init();
+        let rawMsg: any = this.nsstringTOnsdata(msg);
+        let rawKey: any = NSMutableData.dataWithLength(crypto_auth_keybytes());
+        let out: any = NSMutableData.dataWithLength(crypto_auth_bytes());
+
+        crypto_auth_keygen(rawKey.mutableBytes);
+
+        crypto_auth(out.mutableBytes, rawMsg.bytes, rawMsg.length, rawKey);
+
+        return {
+            'CryptedHexString': this.binTohex(out),
+            'rawCrypted': out,
+            'KeyHexString': this.binTohex(rawKey),
+            'rawKey': rawKey
+        };
+    }
+
+    /**
+     * cryptoAuthVerify
+     */
+    public cryptoAuthVerify(ciphertext: any, msg: string, key: any) {
+
+        sodium_init();
+        let rawMsg: any = this.stringTodata(msg);
+
+        if (crypto_auth_verify(ciphertext.bytes, rawMsg.bytes, rawMsg.length, key) == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * SHA2Hash
+     */
+    public SHA2Hash(msg: string, type: number = 256) {
+
+        sodium_init();
+        let rawMsg: any = this.nsstringTOnsdata(msg);
+        let out: any;
+        if (type == 256) {
+            out = NSMutableData.dataWithLength(crypto_hash_sha256_bytes());
+            crypto_hash_sha256(out.mutableBytes, rawMsg.bytes, rawMsg.length);
+        } else {
+            out = NSMutableData.dataWithLength(crypto_hash_sha512_bytes());
+            crypto_hash_sha512(out.mutableBytes, rawMsg.bytes, rawMsg.length);
+        }
+        return {
+            'hexString': this.binTohex(out),
+            'raw': out
+        };
     }
 
     /**
