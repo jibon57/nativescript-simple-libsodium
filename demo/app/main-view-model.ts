@@ -28,11 +28,11 @@ export class HelloWorldModel extends Observable {
     let key = this.simpleLibsodium.generateRandomData(AEDValues.XCHACHA20POLY1305_IETF_KEYBYTES);
     // or let key = this.simpleLibsodium.generateKeyWithSuppliedString("myKey", AEDValues.XCHACHA20POLY1305_IETF_KEYBYTES);
 
-    let enc = this.simpleLibsodium.AEDEncrypt(AEDMethod.XCHACHA20_POLY1305_IETF, "Hello World", key.raw);
+    let enc = this.simpleLibsodium.AEDEncrypt(AEDMethod.XCHACHA20_POLY1305_IETF, "Hello World", key.raw, '', "none");
 
     console.dir(enc);
 
-    let dec = this.simpleLibsodium.AEDDecrypt(AEDMethod.XCHACHA20_POLY1305_IETF, enc.rawCrypted, key.raw, enc.rawNonce);
+    let dec = this.simpleLibsodium.AEDDecrypt(AEDMethod.XCHACHA20_POLY1305_IETF, enc.rawCrypted, key.raw, enc.rawNonce, "none");
 
     console.dir(dec);
   }

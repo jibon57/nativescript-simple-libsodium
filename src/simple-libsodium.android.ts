@@ -46,7 +46,7 @@ export class SimpleLibsodium extends Common {
         this.sodium.sodium_init();
 
         let alg = Interfaces.PwHash.Alg.getDefault();
-        if (salt === "") {
+        if (!salt.length) {
             salt = this.generateRandomData(Keybytes.PWHASH_SALTBYTES).raw; // Interfaces.PwHash.SALTBYTES
         }
         let out = this.lazySodium.cryptoPwHash(mykey, length, salt, opslimit, memlimit, alg);
@@ -78,10 +78,10 @@ export class SimpleLibsodium extends Common {
 
             case AEDMethod.CHACHA20_POLY1305:
 
-                if (nonce === '') {
+                if (!nonce.length) {
                     nonce = this.generateRandomData(AEDValues.CHACHA20POLY1305_NPUBBYTES).raw;
                 }
-                if (additionalMsg === '') {
+                if (!additionalMsg.length) {
                     additionalMsg = this.binTohex(nonce);
                 }
                 if (key.length !== AEDValues.CHACHA20POLY1305_KEYBYTES) {
@@ -93,11 +93,11 @@ export class SimpleLibsodium extends Common {
 
             case AEDMethod.CHACHA20_POLY1305_IETF:
 
-                if (nonce === '') {
+                if (!nonce.length) {
                     nonce = this.generateRandomData(AEDValues.CHACHA20POLY1305_IETF_NPUBBYTES).raw;
                 }
 
-                if (additionalMsg === '') {
+                if (!additionalMsg.length) {
                     additionalMsg = this.binTohex(nonce);
                 }
 
@@ -110,11 +110,11 @@ export class SimpleLibsodium extends Common {
 
             case AEDMethod.XCHACHA20_POLY1305_IETF:
 
-                if (nonce === '') {
+                if (!nonce.length) {
                     nonce = this.generateRandomData(AEDValues.XCHACHA20POLY1305_IETF_NPUBBYTES).raw;
                 }
 
-                if (additionalMsg === '') {
+                if (!additionalMsg.length) {
                     additionalMsg = this.binTohex(nonce);
                 }
 
@@ -128,11 +128,11 @@ export class SimpleLibsodium extends Common {
 
             case AEDMethod.AES256GCM:
 
-                if (nonce === '') {
+                if (!nonce.length) {
                     nonce = this.generateRandomData(AEDValues.AES256GCM_NPUBBYTES).raw;
                 }
 
-                if (additionalMsg === '') {
+                if (!additionalMsg.length) {
                     additionalMsg = this.binTohex(nonce);
                 }
 
@@ -165,7 +165,7 @@ export class SimpleLibsodium extends Common {
         encrypData = this.binTohex(encrypData);
         key = Utils.Key.fromBytes(key);
 
-        if (additionalMsg === '') {
+        if (!additionalMsg.length) {
             additionalMsg = this.binTohex(nonce);
         }
 
@@ -216,7 +216,7 @@ export class SimpleLibsodium extends Common {
             };
         }
 
-        if (nonce === '') {
+        if (!nonce.length) {
             nonce = this.generateRandomData(Interfaces.SecretBox.NONCEBYTES).raw;
         }
 
@@ -258,7 +258,7 @@ export class SimpleLibsodium extends Common {
 
         this.sodium.sodium_init();
 
-        if (nonce === '') {
+        if (!nonce.length) {
             nonce = this.generateRandomData(Interfaces.Stream.SALSA20_NONCEBYTES).raw;
         }
         if (key.length !== Interfaces.Stream.SALSA20_KEYBYTES) {
@@ -307,7 +307,7 @@ export class SimpleLibsodium extends Common {
 
         let keyPair = new Utils.KeyPair(Utils.Key.fromBytes(public_key), Utils.Key.fromBytes(private_key));
 
-        if (nonce === "") {
+        if (!nonce.length) {
             nonce = this.generateRandomData(Interfaces.Box.NONCEBYTES).raw;
         }
 

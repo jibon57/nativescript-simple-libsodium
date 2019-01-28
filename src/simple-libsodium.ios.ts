@@ -26,14 +26,14 @@ export class SimpleLibsodium extends Common {
     /**
      * generateKeyWithSuppliedString
      */
-    public generateKeyWithSuppliedString(mykey: string, length = 32, salt: NSData = null, opslimit = crypto_pwhash_opslimit_min(), memlimit = crypto_pwhash_memlimit_min()) {
+    public generateKeyWithSuppliedString(mykey: string, length = 32, salt: any = '', opslimit = crypto_pwhash_opslimit_min(), memlimit = crypto_pwhash_memlimit_min()) {
 
         sodium_init();
         let out: any = NSMutableData.dataWithLength(length);
         let passwd: any = this.nsstringTOnsdata(mykey);
         let rawSalt;
 
-        if (salt === null) {
+        if (!salt.length) {
             rawSalt = this.generateRandomData(Keybytes.PWHASH_SALTBYTES).raw; // crypto_pwhash_saltbytes()
         } else {
             rawSalt = salt;
@@ -54,7 +54,7 @@ export class SimpleLibsodium extends Common {
     /**
      * AEDEncrypt
      */
-    public AEDEncrypt(method: AEDMethod, msg: string, key: NSData, nonce: NSData = null, additionalMsg: string = '') {
+    public AEDEncrypt(method: AEDMethod, msg: string, key: NSData, nonce: any = '', additionalMsg: string = '') {
 
         sodium_init();
         let outData, ciphertext_len, additionalData, rawNonce;
@@ -70,14 +70,15 @@ export class SimpleLibsodium extends Common {
         switch (method) {
             case AEDMethod.CHACHA20_POLY1305:
 
-                if (nonce == null) {
+                if (!nonce.length) {
                     rawNonce = this.generateRandomData(AEDValues.CHACHA20POLY1305_NPUBBYTES).raw;
                 } else {
                     rawNonce = nonce;
                 }
 
-                if (additionalMsg === '') {
-                    additionalData = rawNonce;
+                if (!additionalMsg.length) {
+                    additionalData = this.binTohex(rawNonce);
+                    additionalData = this.nsstringTOnsdata(additionalData);
                 } else {
                     additionalData = this.nsstringTOnsdata(additionalMsg);
                 }
@@ -96,14 +97,15 @@ export class SimpleLibsodium extends Common {
 
             case AEDMethod.CHACHA20_POLY1305_IETF:
 
-                if (nonce == null) {
+                if (!nonce.length) {
                     rawNonce = this.generateRandomData(AEDValues.CHACHA20POLY1305_IETF_NPUBBYTES).raw;
                 } else {
                     rawNonce = nonce;
                 }
 
-                if (additionalMsg === '') {
-                    additionalData = rawNonce;
+                if (!additionalMsg.length) {
+                    additionalData = this.binTohex(rawNonce);
+                    additionalData = this.nsstringTOnsdata(additionalData);
                 } else {
                     additionalData = this.nsstringTOnsdata(additionalMsg);
                 }
@@ -121,14 +123,15 @@ export class SimpleLibsodium extends Common {
 
             case AEDMethod.XCHACHA20_POLY1305_IETF:
 
-                if (nonce == null) {
+                if (!nonce.length) {
                     rawNonce = this.generateRandomData(AEDValues.XCHACHA20POLY1305_IETF_NPUBBYTES).raw;
                 } else {
                     rawNonce = nonce;
                 }
 
-                if (additionalMsg === '') {
-                    additionalData = rawNonce;
+                if (!additionalMsg.length) {
+                    additionalData = this.binTohex(rawNonce);
+                    additionalData = this.nsstringTOnsdata(additionalData);
                 } else {
                     additionalData = this.nsstringTOnsdata(additionalMsg);
                 }
@@ -146,14 +149,15 @@ export class SimpleLibsodium extends Common {
 
             case AEDMethod.AES256GCM:
 
-                if (nonce == null) {
+                if (!nonce.length) {
                     rawNonce = this.generateRandomData(AEDValues.AES256GCM_NPUBBYTES).raw;
                 } else {
                     rawNonce = nonce;
                 }
 
-                if (additionalMsg === '') {
-                    additionalData = rawNonce;
+                if (!additionalMsg.length) {
+                    additionalData = this.binTohex(rawNonce);
+                    additionalData = this.nsstringTOnsdata(additionalData);
                 } else {
                     additionalData = this.nsstringTOnsdata(additionalMsg);
                 }
@@ -194,10 +198,11 @@ export class SimpleLibsodium extends Common {
         let rawData: any = encrypData;
         let outData;
 
-        if (additionalMsg !== '') {
+        if (additionalMsg.length) {
             rawAdditionalMsg = this.nsstringTOnsdata(additionalMsg);
         } else {
-            rawAdditionalMsg = nonce;
+            rawAdditionalMsg = this.binTohex(nonce);
+            rawAdditionalMsg = this.nsstringTOnsdata(rawAdditionalMsg);
         }
 
         switch (method) {
@@ -244,7 +249,7 @@ export class SimpleLibsodium extends Common {
     /**
      * secretBoxEncrypt
      */
-    public secretBoxEncrypt(text: string, key: NSData, nonce: NSData = null) {
+    public secretBoxEncrypt(text: string, key: NSData, nonce: any = '') {
 
         sodium_init();
         let msg: any = this.nsstringTOnsdata(text);
@@ -259,7 +264,7 @@ export class SimpleLibsodium extends Common {
                 'msg': 'Invalid key. Key length should be 32'
             };
         }
-        if (nonce == null) {
+        if (!nonce.length) {
             rawNonce = this.generateRandomData(crypto_secretbox_noncebytes()).raw;
         }
 
@@ -297,12 +302,12 @@ export class SimpleLibsodium extends Common {
     /**
      * xSalsa20Encrypt
      */
-    public xSalsa20Encrypt(message: string, key: NSData, nonce: NSData = null) {
+    public xSalsa20Encrypt(message: string, key: NSData, nonce: any = '') {
 
         sodium_init();
         let rawNonce: any = nonce;
         let rawKey: any = key;
-        if (nonce == null) {
+        if (!nonce.length) {
             rawNonce = this.generateRandomData(crypto_stream_noncebytes()).raw;
         }
         if (key.length !== crypto_stream_keybytes()) {
@@ -350,7 +355,7 @@ export class SimpleLibsodium extends Common {
     /**
      * boxEasy
      */
-    public boxEasy(msg: string, public_key: any, private_key: any, nonce: NSData = null) {
+    public boxEasy(msg: string, public_key: any, private_key: any, nonce: any = '') {
 
         sodium_init();
         let rawMsg: any = this.nsstringTOnsdata(msg);
@@ -358,7 +363,7 @@ export class SimpleLibsodium extends Common {
         let outData: any = NSMutableData.dataWithLength(outLen);
         let rawNonce: any = nonce;
 
-        if (nonce == null) {
+        if (!nonce.length) {
             rawNonce = this.generateRandomData(crypto_box_noncebytes()).raw;
         }
 
